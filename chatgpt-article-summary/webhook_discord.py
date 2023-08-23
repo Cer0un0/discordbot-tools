@@ -13,15 +13,18 @@ if args[1]=='dev':
 elif args[1] == 'prod':
   WEBHOOK_URL = os.environ['WEBHOOK_PROD']
 USER_NAME= 'Chloe'
-AVATAR_URL = 'https://pics.prcm.jp/0ec14977eabf0/85736900/png/85736900.png'
-N = 1
+AVATAR_URL = os.environ['AVATAR_URL']
+# どの記事から対象にするか
+START_N = int(args[2])
+# どの記事まで対象にするか
+# args[2]: 記事数
+END_N = int(args[3]) + START_N
 CONTENT_SIZE = 8000
 
 def generate_embed(article, summary) -> dict:
   base_url = 'https://zenn.dev'
   article_url = '{}{}'.format(base_url, article['path'])
-  embed = {
-            'title': article['title'],
+  embed = {'title': article['title'],
             'description': summary,
             'url': article_url,
             'author':{
@@ -49,7 +52,7 @@ if __name__ == "__main__":
   zenn_articles = zenn_article()
 
   embeds = []
-  for i in range(N):
+  for i in range(START_N-1, END_N-1):
     article = zenn_articles.get_info(i)
     print(article)
     content = zenn_articles.get_content(article['path'])
@@ -72,3 +75,6 @@ if __name__ == "__main__":
       requests.post(WEBHOOK_URL, json=data)
   except requests.exceptions.RequestException as e:
       print(e)
+      
+  print(START_N)
+  print(END_N)
