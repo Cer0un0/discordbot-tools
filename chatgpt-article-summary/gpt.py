@@ -13,13 +13,14 @@ class gpt_summary:
         # template
 
         self.template = '''
-            下記の記事の内容の概要を200字〜300字程度で箇条書きにして読みやすくしてください。
+            下記の記事の要点をITエンジニアが興味を持つような記述で、200字〜300字程度で箇条書きで作成してください。
             {text}
             '''
         self.prompt = PromptTemplate(
             input_variables=['text'],
             template=self.template
         )
+        
         self.llm_chain = LLMChain(
             llm=ChatOpenAI(model_name=model_name, temperature=0.3),
             prompt=self.prompt,
