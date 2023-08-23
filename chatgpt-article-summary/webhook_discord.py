@@ -3,10 +3,15 @@ from dotenv import load_dotenv
 import os
 from articles import zenn_article
 from gpt import gpt_summary
+import sys
+
+args = sys.argv
 
 load_dotenv()
-# 開発室
-WEBHOOK_URL = os.environ['WEBHOOK']
+if args[1]=='dev':
+  WEBHOOK_URL = os.environ['WEBHOOK_DEV']
+elif args[1] == 'prod':
+  WEBHOOK_URL = os.environ['WEBHOOK_PROD']
 USER_NAME= 'Chloe'
 AVATAR_URL = 'https://pics.prcm.jp/0ec14977eabf0/85736900/png/85736900.png'
 N = 1
