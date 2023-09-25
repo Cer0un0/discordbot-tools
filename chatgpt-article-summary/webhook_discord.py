@@ -32,7 +32,7 @@ def generate_embed(article, summary) -> dict:
               'icon_url': article['user']['avatar_small_url'],
               },
             'footer': {
-              'text': article['published_at'],
+              'text': 'Posted date: {}'.format(article['published_at']),
               'icon_url': ''
               },
             'color': 0x00bfff,
