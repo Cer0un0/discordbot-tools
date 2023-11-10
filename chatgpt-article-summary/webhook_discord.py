@@ -57,7 +57,7 @@ if __name__ == "__main__":
     print(article)
     content = zenn_articles.get_content(article['path'])
 
-    gpt_sum = gpt_summary(model_name='gpt-3.5-turbo-16k')
+    gpt_sum = gpt_summary(model_name='gpt-4-1106-preview')
     summary = gpt_sum.summary(content[:CONTENT_SIZE])
     embeds.append(generate_embed(article, summary))
 
